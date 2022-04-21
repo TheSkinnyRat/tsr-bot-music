@@ -40,24 +40,35 @@ module.exports = {
         message.channel,
         `**No lyrics found for -** \`${SongTitle}\``
       );
-    lyrics = lyrics.split("\n"); //spliting into lines
-    let SplitedLyrics = _.chunk(lyrics, 40); //45 lines each page
+    // lyrics = lyrics.split("\n"); //spliting into lines
+    // let SplitedLyrics = _.chunk(lyrics, 40); //45 lines each page
 
-    let Pages = SplitedLyrics.map((ly) => {
-      let em = new MessageEmbed()
-        .setAuthor(`Lyrics for: ${SongTitle}`, client.botconfig.IconURL)
-        .setColor(client.botconfig.EmbedColor)
-        .setDescription(ly.join("\n"));
+    // let Pages = SplitedLyrics.map((ly) => {
+    //   let em = new MessageEmbed()
+    //     .setAuthor(`Lyrics for: ${SongTitle}`, client.botconfig.IconURL)
+    //     .setColor(client.botconfig.EmbedColor)
+    //     .setDescription(ly.join("\n"));
+
+    //   if (args.join(" ") !== SongTitle)
+    //     em.setThumbnail(player.queue.current.displayThumbnail());
+
+    //   return em;
+    // });
+
+    let displayLyrics = new MessageEmbed()
+      .setAuthor(`Lyrics for: ${SongTitle}`, client.botconfig.IconURL)
+      .setColor(client.botconfig.EmbedColor)
+      .setDescription(lyrics);
 
       if (args.join(" ") !== SongTitle)
-        em.setThumbnail(player.queue.current.displayThumbnail());
+        displayLyrics.setThumbnail(player.queue.current.displayThumbnail());
 
-      return em;
-    });
+    // dispaly lyric full page
+    return message.channel.send(displayLyrics);
 
-    if (!Pages.length || Pages.length === 1)
-      return message.channel.send(Pages[0]);
-    else return client.Pagination(message, Pages);
+    // if (!Pages.length || Pages.length === 1)
+    //   return message.channel.send(Pages[0]);
+    // else return client.Pagination(message, Pages);
   },
 
   SlashCommand: {
