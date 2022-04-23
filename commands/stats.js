@@ -35,7 +35,7 @@ module.exports = {
       embed.addFields(
         {
           name: ":ping_pong: Ping",
-          value: `┕\`${Math.round(client.ws.ping)}ms\``,
+          value: `┕\`${Date.now() - message.createdTimestamp}ms\``,
           inline: true,
         },
         {
