@@ -1,0 +1,19 @@
+**__1.0.2-21042022__**
+
+- New command [avatar]
+- Set lyrics to be displayed in full page
+
+**__1.0.3-22042022__**
+
+- New command [changelog]
+- Using embed for "play" -> search message
+- Change "added to queue" icon to requster icon (bot icon before)
+- Set "added to queue" to display only if queue > 1
+- Change "now playing" icon to requster icon (bot icon before)
+- Set to not send message when queue end
+- Fix bug when using queue command after playing
+- Set to not delete "now playing" message
+- Bot now automatically disconnected if everybody left voice channel
+- Presence bot now display current version
+- Change "stats" -> ping logic from [Math.round(client.ws.ping)] -> [Date.now() - message.createdTimestamp]
+- Re-config lavalink server (remove limitation by systemd)
