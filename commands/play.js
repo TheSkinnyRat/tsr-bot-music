@@ -39,7 +39,10 @@ module.exports = {
         `**Usage - **\`${GuildDB.prefix}play [song]\``
       );
     let CheckNode = client.Manager.nodes.get(client.botconfig.Lavalink.id);
-    let Searching = await message.channel.send(":mag_right: Searching...");
+    let embedSearching = new MessageEmbed()
+      .setColor(client.botconfig.EmbedColor)
+      .setDescription("🔎 | **Searching for your song...**");
+    let Searching = await message.channel.send(embedSearching);
     if (!CheckNode || !CheckNode.connected) {
       return client.sendTime(
         message.channel,
@@ -131,12 +134,12 @@ module.exports = {
             "❌ | **Nothing is playing right now...**"
           );
 
-        if (Searched.loadType === "NO_MATCHES")
-          return client.sendTime(
-            message.channel,
-            "**No matches found for - **" + SearchString
+        if (Searched.loadType === "NO_MATCHES") {
+          SongAddedEmbed.setDescription(
+            `🚩 | **No matches found for - ** \`${SearchString}\``
           );
-        else if (Searched.loadType == "PLAYLIST_LOADED") {
+          Searching.edit(SongAddedEmbed);
+        } else if (Searched.loadType == "PLAYLIST_LOADED") {
           player.queue.add(Searched.tracks);
           if (
             !player.playing &&
@@ -196,6 +199,8 @@ module.exports = {
               true
             );
             Searching.edit(SongAddedEmbed);
+          } else {
+            Searching.delete();
           }
         }
       }
