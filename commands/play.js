@@ -145,8 +145,9 @@ module.exports = {
           )
             player.play();
           SongAddedEmbed.setAuthor(
-            `Playlist added to queue`,
-            client.botconfig.IconURL
+            `| Playlist added to queue`,
+            // client.botconfig.IconURL
+            message.author.displayAvatarURL({ dynamic: true })
           );
           // SongAddedEmbed.setThumbnail(Searched.tracks[0].displayThumbnail());
           SongAddedEmbed.setDescription(
@@ -172,8 +173,9 @@ module.exports = {
 
           if (player.queue.totalSize > 1) {
             SongAddedEmbed.setAuthor(
-              `Added to queue`,
-              client.botconfig.IconURL
+              `| Added to queue`,
+              // client.botconfig.IconURL
+              message.author.displayAvatarURL({ dynamic: true })
             );
 
             // SongAddedEmbed.setThumbnail(Searched.tracks[0].displayThumbnail());
