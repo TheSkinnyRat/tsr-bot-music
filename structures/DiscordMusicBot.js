@@ -159,7 +159,11 @@ class DiscordMusicBot extends Client {
       .on("trackStart", async (player, track) => {
         this.SongsPlayed++;
         let TrackStartedEmbed = new MessageEmbed()
-          .setAuthor(`Now playing ♪`, this.botconfig.IconURL)
+          // .setAuthor(`Now playing ♪`, this.botconfig.IconURL)
+          .setAuthor(
+            `| Now playing ♪`,
+            track.requester.displayAvatarURL({ dynamic: true })
+          )
           .setThumbnail(player.queue.current.displayThumbnail())
           .setDescription(`[${track.title}](${track.uri})`)
           .addField("Requested by", `${track.requester}`, true)
