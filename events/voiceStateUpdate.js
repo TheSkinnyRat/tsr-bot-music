@@ -68,14 +68,22 @@ module.exports = async (client, oldState, newState) => {
       }
       break;
     case "LEAVE":
-      if (stateChange.members.size === 0 && !player.paused && player.playing) {
-        player.pause(true);
+      // if (stateChange.members.size === 0 && !player.paused && player.playing) {
+      //   player.pause(true);
 
-        let emb = new MessageEmbed()
-          .setAuthor(`Paused!`, client.botconfig.IconURL)
-          .setColor(client.botconfig.EmbedColor)
-          .setDescription(`The player has been paused because everybody left`);
-        await client.channels.cache.get(player.textChannel).send(emb);
+      //   let emb = new MessageEmbed()
+      //     .setAuthor(`Paused!`, client.botconfig.IconURL)
+      //     .setColor(client.botconfig.EmbedColor)
+      //     .setDescription(`The player has been paused because everybody left`);
+      //   await client.channels.cache.get(player.textChannel).send(emb);
+      // }
+
+      if (stateChange.members.size === 0) {
+        player.destroy();
+        return client.sendTime(
+          client.channels.cache.get(player.textChannel),
+          "⛔ | **Disconnected because everybody left**"
+        );
       }
       break;
   }

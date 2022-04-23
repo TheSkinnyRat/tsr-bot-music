@@ -133,11 +133,7 @@ class DiscordMusicBot extends Client {
     );
 
     this.Manager = new Manager({
-      plugins: [
-        new deezer(),
-        new apple(),
-        new facebook(),
-      ],
+      plugins: [new deezer(), new apple(), new facebook()],
       nodes: [
         {
           identifier: this.botconfig.Lavalink.id,
@@ -163,7 +159,11 @@ class DiscordMusicBot extends Client {
       .on("trackStart", async (player, track) => {
         this.SongsPlayed++;
         let TrackStartedEmbed = new MessageEmbed()
-          .setAuthor(`Now playing ♪`, this.botconfig.IconURL)
+          // .setAuthor(`Now playing ♪`, this.botconfig.IconURL)
+          .setAuthor(
+            `| Now playing ♪`,
+            track.requester.displayAvatarURL({ dynamic: true })
+          )
           .setThumbnail(player.queue.current.displayThumbnail())
           .setDescription(`[${track.title}](${track.uri})`)
           .addField("Requested by", `${track.requester}`, true)
@@ -179,14 +179,14 @@ class DiscordMusicBot extends Client {
         let NowPlaying = await client.channels.cache
           .get(player.textChannel)
           .send(TrackStartedEmbed);
-        player.setNowplayingMessage(NowPlaying);
+        // player.setNowplayingMessage(NowPlaying);
       })
       .on("queueEnd", (player) => {
-        let QueueEmbed = new MessageEmbed()
-          .setAuthor("The queue has ended", this.botconfig.IconURL)
-          .setColor(this.botconfig.EmbedColor)
-          .setTimestamp();
-        client.channels.cache.get(player.textChannel).send(QueueEmbed);
+        // let QueueEmbed = new MessageEmbed()
+        //   .setAuthor("The queue has ended", this.botconfig.IconURL)
+        //   .setColor(this.botconfig.EmbedColor)
+        //   .setTimestamp();
+        // client.channels.cache.get(player.textChannel).send(QueueEmbed);
         if (!this.botconfig["24/7"]) player.destroy();
       });
   }
