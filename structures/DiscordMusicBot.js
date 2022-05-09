@@ -28,7 +28,7 @@ class DiscordMusicBot extends Client {
 
     this.database = {
       //Saved at jsoning node_modules directory, DOCS: https://jsoning.js.org/
-      guild: new Jsoning("guild.json"), //Server Config
+      guild: new Jsoning(path.join(__dirname, "..", "guild.json")), //Server Config
     };
     this.logger = new Logger(path.join(__dirname, "..", "Logs.log"));
 
