@@ -17,3 +17,11 @@
 - Presence bot now display current version
 - Change "stats" -> ping logic from [Math.round(client.ws.ping)] -> [Date.now() - message.createdTimestamp]
 - Re-config lavalink server (remove limitation by systemd)
+
+**__1.0.4-09052022__**
+
+- Fix guild database to (force) save to root directory (working directory before and causing bug while use pm2 to run program)
+- Change "now playing" message to display more compact
+- Change "search" to display more compact
+- Change "search" icon to requster icon (bot icon before)
+- Change "search" to not display "added to queue" if queue = 1
