@@ -130,7 +130,10 @@ module.exports = {
       if (!player.playing && !player.paused && !player.queue.size)
         player.play();
       let SongAddedEmbed = new MessageEmbed();
-      SongAddedEmbed.setAuthor(`Added to queue`, client.botconfig.IconURL);
+      SongAddedEmbed.setAuthor(
+        `| Added to queue`,
+        message.author.displayAvatarURL({ dynamic: true })
+      );
       SongAddedEmbed.setThumbnail(Song.displayThumbnail());
       SongAddedEmbed.setColor(client.botconfig.EmbedColor);
       SongAddedEmbed.setDescription(`[${Song.title}](${Song.uri})`);
