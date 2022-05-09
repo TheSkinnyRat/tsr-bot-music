@@ -130,27 +130,37 @@ module.exports = {
       if (!player.playing && !player.paused && !player.queue.size)
         player.play();
       let SongAddedEmbed = new MessageEmbed();
-      SongAddedEmbed.setAuthor(
-        `| Added to queue`,
-        message.author.displayAvatarURL({ dynamic: true })
-      );
-      SongAddedEmbed.setThumbnail(Song.displayThumbnail());
-      SongAddedEmbed.setColor(client.botconfig.EmbedColor);
-      SongAddedEmbed.setDescription(`[${Song.title}](${Song.uri})`);
-      SongAddedEmbed.addField("Author", `${Song.author}`, true);
-      SongAddedEmbed.addField(
-        "Duration",
-        `\`${prettyMilliseconds(player.queue.current.duration, {
-          colonNotation: true,
-        })}\``,
-        true
-      );
-      if (player.queue.totalSize > 1)
+      if (player.queue.totalSize > 1) {
+        SongAddedEmbed.setAuthor(
+          `| Added to queue`,
+          message.author.displayAvatarURL({ dynamic: true })
+        );
+        SongAddedEmbed.setThumbnail(Song.displayThumbnail());
+        SongAddedEmbed.setColor(client.botconfig.EmbedColor);
+        SongAddedEmbed.setDescription(`[${Song.title}](${Song.uri})`);
+        SongAddedEmbed.addField("Author", `${Song.author}`, true);
         SongAddedEmbed.addField(
-          "Position in queue",
-          `${player.queue.size - 0}`,
+          "Duration",
+          `\`${prettyMilliseconds(player.queue.current.duration, {
+            colonNotation: true,
+          })}\``,
           true
         );
+        if (player.queue.totalSize > 1)
+          SongAddedEmbed.addField(
+            "Position in queue",
+            `${player.queue.size - 0}`,
+            true
+          );
+      } else {
+        SongAddedEmbed.setAuthor(
+          `| Song #${SongIDmsg} selected`,
+          message.author.displayAvatarURL({ dynamic: true })
+        );
+        SongAddedEmbed.setColor(client.botconfig.EmbedColor);
+        // SongAddedEmbed.setDescription(`[${Song.title}](${Song.uri}) \`${prettyMilliseconds(player.queue.current.duration, { colonNotation: true })}\``);
+      }
+
       message.channel.send(SongAddedEmbed);
     }
   },
