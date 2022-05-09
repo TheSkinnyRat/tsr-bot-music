@@ -61,22 +61,21 @@ module.exports = {
     if (Searched.loadType == "NO_MATCHES")
       return client.sendTime(
         message.channel,
-        "No matches found for " + SearchString
+        "No matches found for - " + SearchString
       );
     else {
       Searched.tracks = Searched.tracks.map((s, i) => {
         s.index = i;
         return s;
       });
-      let songs = _.chunk(Searched.tracks, 10);
+      let songs = _.chunk(Searched.tracks, 5);
       let Pages = songs.map((songz) => {
         let MappedSongs = songz.map(
           (s) =>
-            `\`${s.index + 1}.\` [${s.title}](${
-              s.uri
-            }) \nDuration: \`${prettyMilliseconds(s.duration, {
-              colonNotation: true,
-            })}\``
+            `\`${s.index + 1}.\` [${s.title}](${s.uri}) (${prettyMilliseconds(
+              s.duration,
+              { colonNotation: true }
+            )})`
         );
 
         let em = new MessageEmbed()
@@ -85,7 +84,7 @@ module.exports = {
             client.botconfig.IconURL
           )
           .setColor(client.botconfig.EmbedColor)
-          .setDescription(MappedSongs.join("\n\n"));
+          .setDescription(MappedSongs.join("\n"));
         return em;
       });
 
