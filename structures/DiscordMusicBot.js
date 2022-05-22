@@ -193,6 +193,32 @@ class DiscordMusicBot extends Client {
         //   .setTimestamp();
         // client.channels.cache.get(player.textChannel).send(QueueEmbed);
         if (!this.botconfig["24/7"]) player.destroy();
+      })
+      // Send error message when track error while playing
+      .on("trackError", (player, track, payload) => {
+        let TrackErrorEmbed = new MessageEmbed()
+          .setColor("RED")
+          .setAuthor(
+            `ERROR: ${payload.error}`,
+            track.requester.displayAvatarURL({ dynamic: true })
+          )
+          .setThumbnail(player.queue.current.displayThumbnail())
+          .setDescription(
+            `[${track.title}](${track.uri}) \`(${prettyMilliseconds(
+              track.duration,
+              { colonNotation: true }
+            )})\``
+          )
+          .setFooter("Detailed error described below");
+        //.setFooter("Started playing at");
+        let trackErrorMessage = `\`\`\`json\n ${JSON.stringify(
+          payload,
+          null,
+          2
+        )} \`\`\``;
+        client.channels.cache.get(player.textChannel).send(TrackErrorEmbed);
+
+        client.channels.cache.get(player.textChannel).send(trackErrorMessage);
       });
   }
 
