@@ -112,3 +112,7 @@ dev-config.js
 a.js
 guild.json
 botconfig.js
+
+# another
+commands/_dev.js.old
+commands/_dev.js
