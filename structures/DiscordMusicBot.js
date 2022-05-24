@@ -229,7 +229,7 @@ class DiscordMusicBot extends Client {
           const identifier = player.queue.current.identifier;
           const search = `https://www.youtube.com/watch?v=${identifier}&list=RD${oldidentifier}`;
           res = await player.search(search, requester);
-          const track = player.get("track");
+          let track = player.get("track");
           player.set("track", track++);
           player.queue.add(res.tracks[track]);
         }
