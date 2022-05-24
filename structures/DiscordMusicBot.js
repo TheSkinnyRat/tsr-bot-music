@@ -185,13 +185,6 @@ class DiscordMusicBot extends Client {
           .get(player.textChannel)
           .send(TrackStartedEmbed);
         // player.setNowplayingMessage(NowPlaying);
-
-        // autoplay change indentifier
-        const autoplay = player.get("autoplay");
-        if (autoplay === true) {
-          const identifier = player.queue.current.identifier;
-          player.set("identifier", identifier);
-        }
       })
       .on("queueEnd", (player) => {
         // let QueueEmbed = new MessageEmbed()
@@ -236,7 +229,9 @@ class DiscordMusicBot extends Client {
           const identifier = player.queue.current.identifier;
           const search = `https://www.youtube.com/watch?v=${identifier}&list=RD${oldidentifier}`;
           res = await player.search(search, requester);
-          player.queue.add(res.tracks[2]);
+          const track = player.get("track");
+          player.set("track", track++);
+          player.queue.add(res.tracks[track]);
         }
       });
   }

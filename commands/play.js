@@ -199,6 +199,14 @@ module.exports = {
               true
             );
             Searching.edit(SongAddedEmbed);
+
+            // change autoplay indentifier
+            const autoplay = player.get("autoplay");
+            if (autoplay === true) {
+              const identifier = player.queue.current.identifier;
+              player.set("identifier", identifier);
+              player.set("track", 1);
+            }
           } else {
             Searching.delete();
           }

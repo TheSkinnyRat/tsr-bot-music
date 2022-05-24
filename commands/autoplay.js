@@ -46,6 +46,7 @@ module.exports = {
       player.set("autoplay", true);
       player.set("requester", message.author);
       player.set("identifier", identifier);
+      player.set("track", 1);
       const search = `https://www.youtube.com/watch?v=${identifier}&list=RD${identifier}`;
       res = await player.search(search, client.user);
       player.queue.add(res.tracks[1]);
